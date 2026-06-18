@@ -11,6 +11,9 @@ import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintWriter;
 import java.net.*;
 import java.util.Optional;
 import java.util.Scanner;
@@ -155,5 +158,29 @@ public class CepService {
         } catch (Exception e) {
             return "N/A";
         }
+    }
+
+    public ByteArrayInputStream gerarRelatorioCsv(Long usuarioId) {
+
+        List<Cep> consultas =
+                cepRepository.findByUsuarioIdOrderByDataConsultaDesc(usuarioId);
+
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        PrintWriter writer = new PrintWriter(out);
+
+        writer.println("CEP,Cidade,Estado,Logradouro,Data Consulta");
+
+        for (Cep c : consultas) {
+            writer.printf("%s,%s,%s,%s,%s%n",
+                    c.getCep(),
+                    c.getCidade(),
+                    c.getEstado(),
+                    c.getLogradouro(),
+                    c.getDataConsulta());
+        }
+
+        writer.flush();
+
+        return new ByteArrayInputStream(out.toByteArray());
     }
 }

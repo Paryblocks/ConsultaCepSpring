@@ -3,9 +3,12 @@ package com.trabalho.viacep.controller;
 import com.trabalho.viacep.model.Cep;
 import com.trabalho.viacep.service.CepService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import java.io.ByteArrayInputStream;
 import java.util.List;
 
 @RestController
@@ -48,5 +51,23 @@ public class CepController {
     public ResponseEntity<Void> limparHistorico(@PathVariable Long usuarioId) {
         service.limparHistoricoUsuario(usuarioId);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/relatorio/{usuarioId}")
+    public ResponseEntity<InputStreamResource> gerarRelatorio(
+            @PathVariable Long usuarioId) {
+
+        ByteArrayInputStream csv = service.gerarRelatorioCsv(usuarioId);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(
+                HttpHeaders.CONTENT_DISPOSITION,
+                "attachment; filename=relatorio-ceps.csv"
+        );
+
+        return ResponseEntity.ok()
+                .headers(headers)
+                .contentType(MediaType.parseMediaType("text/csv"))
+                .body(new InputStreamResource(csv));
     }
 }

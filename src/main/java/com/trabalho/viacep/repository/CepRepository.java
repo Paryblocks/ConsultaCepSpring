@@ -37,4 +37,6 @@ public interface CepRepository extends JpaRepository<Cep, Long> {
 
     @Query("SELECT COUNT(c) FROM Cep c WHERE c.usuario.id = :usuarioId")
     int contarTotalAcessosPorUsuarioId(@Param("usuarioId") Long usuarioId);
+
+    List<Cep> findByUsuarioIdOrderByDataConsultaDesc(Long usuarioId);
 }
