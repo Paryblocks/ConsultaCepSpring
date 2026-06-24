@@ -9,8 +9,6 @@ import java.util.Optional;
 
 @Repository
 public interface FavoritoRepository extends JpaRepository<Favorito, Long> {
-    Optional<Favorito> findByCepAndUsuarioId(String cep, Long usuarioId);
-
     void deleteByCepAndUsuarioId(String cep, Long usuarioId);
 
     List<Favorito> findByUsuarioId(Long usuarioId);

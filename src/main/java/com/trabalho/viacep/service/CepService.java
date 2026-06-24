@@ -147,6 +147,10 @@ public class CepService {
         return cepRepository.findTop15CepsMaisPesquisados(usuarioId);
     }
 
+    public List<Cep> mostrarHistorico(Long usuarioId) {
+        return cepRepository.findByUsuarioIdOrderByDataConsultaDesc(usuarioId);
+    }
+
     public void limparHistoricoUsuario(Long usuarioId) {
         cepRepository.deleteByUsuarioId(usuarioId);
     }

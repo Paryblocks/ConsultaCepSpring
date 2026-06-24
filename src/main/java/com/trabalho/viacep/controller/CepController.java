@@ -47,7 +47,12 @@ public class CepController {
         return service.obterTop15MaisPesquisadosDoUsuario(usuarioId);
     }
 
-    @DeleteMapping("/historico/{usuarioId}")
+    @GetMapping("/historico/{usuarioId}")
+    public List<Cep> obterHistoricoDoUsuario(@PathVariable Long usuarioId) {
+        return service.mostrarHistorico(usuarioId);
+    }
+
+    @DeleteMapping("/historico/delete/{usuarioId}")
     public ResponseEntity<Void> limparHistorico(@PathVariable Long usuarioId) {
         service.limparHistoricoUsuario(usuarioId);
         return ResponseEntity.noContent().build();

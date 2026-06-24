@@ -11,23 +11,13 @@ import java.util.Optional;
 
 @Repository
 public interface CepRepository extends JpaRepository<Cep, Long> {
-    Optional<Cep> findByCepAndUsuarioId(String cep, Long usuarioId);
-
-    void deleteByCepAndUsuarioId(String cep, Long usuarioId);
-
     void deleteByUsuarioId(Long usuarioId);
-
-    List<Cep> findTop15ByUsuarioIdOrderByDataConsultaDesc(Long usuarioId);
-
-    List<Cep> findTop15ByUsuarioIdOrderByDataConsultaAsc(Long usuarioId);
 
     @Query("SELECT c.cep FROM Cep c " +
             "WHERE c.usuario.id = :usuarioId " +
             "GROUP BY c.cep " +
             "ORDER BY COUNT(c.cep) DESC")
     List<String> findTop15CepsMaisPesquisados(@Param("usuarioId") Long usuarioId);
-
-    Optional<Cep> findFirstByUsuarioIdOrderByDataConsultaDesc(Long usuarioId);
 
     @Query("SELECT c.cep FROM Cep c " +
             "GROUP BY c.cep " +
