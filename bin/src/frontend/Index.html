@@ -17,20 +17,22 @@
                 <a href="Index.html">ViaCep 2.0</a>
             </li>
 
+
             <li class="anav login">
-                <a href="Login.html">Login</a>
+                <a href="Index.html">Login</a>
             </li>
             <li class="anav">
                 <a href="Index.html">Logout</a>
             </li>
 
             <li class="anav">
-                <a href="Conta.html">Conta</a>
+                <a href="Index.html">Conta</a>
             </li>
 
             <li class="anav">
-                <a href="Favorito.html">Favoritos</a>
+                <a href="Index.html">Favoritos</a>
             </li>
+
         </ul>
     </nav>
     <main>
@@ -42,53 +44,63 @@
             <img class="imagemres" src="Imagens/imagemprincipal.png">
         </div>
 
-        <br><br><br>
+        <br>
+        <br>
+        <br>
         <div class="centralizar">
             <div class="caixaazul">
-                <form id="formCep">
-                    <div class="labelalinhado">
+                <form>
+                    <div class=labelalinhado>
                         <img src="Imagens/lupa.png" alt="Lupa" width="20px">
                         <p>Pesquisar por CEP</p>
                     </div>
                     <label class="labels" for="Cep">Cep: </label>
-                    <input class="input" type="text" id="Cep" name="Cep" placeholder="    Ex.: 80060150">
+                    <input class="input" type="text" id="Cep" name="Cep" placeholder="Ex.: 80060150">
                     <button class="buscar" type="submit">Buscar</button>
                     <p class="aviso">*Insira sem hífen, assim como no exemplo</p>
                 </form>
             </div>
-            <br><br><br>
+            <br>
+            <br>
+            <br>
 
             <div class="caixaazul">
-                <form id="formEndereco">
-                    <div class="labelalinhado">
+                <form>
+                    <div class=labelalinhado>
                         <img src="Imagens/lupa.png" alt="Lupa" width="20px">
                         <p>Pesquisar por Endereço</p>
                     </div>
                     <label class="labels" for="UF"> UF: </label>
-                    <input class="input" type="text" id="UF" name="UF" placeholder="    Ex.: PR">
-                    <br><br>
+                    <input class="input" type="text" id="UF" name="UF" placeholder="Ex.: PR">
+                    <br>
+                    <br>
                     <label class="labels" for="Cidade"> Cidade: </label>
-                    <input class="input" type="text" id="Cidade" name="Cidade" placeholder="    Ex.: Curitiba">
-                    <br><br>
+                    <input class="input" type="text" id="Cidade" name="Cidade" placeholder="Ex.: Curitiba">
+                    <br>
+                    <br>
                     <label class="labels" for="Logradouro"> Logradouro: </label>
-                    <input class="input" type="text" id="Logradouro" name="Logradouro" placeholder="    Ex.: Rua General Carneiro">
-                    <br><br>
+                    <input class="input" type="text" id="Logradouro" name="Logradouro"
+                        placeholder="Ex.: Rua General Carneiro">
+                    <br>
+                    <br>
                     <button class="buscar2 buscar" type="submit">Buscar</button>
                 </form>
             </div>
         </div>
-        <br><br><br>
+        <br>
+        <br>
+        <br>
         <hr>
         <br>
         <h2>Resultados e Histórico:</h2>
         <br>
         <div class="flexhistorico">
             <div>
-                <label for="HistoricoInput"> Pesquisar no Histórico pelo CEP:</label>
-                <input class="input2 input" type="text" id="HistoricoInput" name="historico" placeholder="Ex.: 80060150">
-                <button class="buscar" id="btnBuscarHistorico" type="button">Buscar</button>
+                <label for="Cidade"> Pesquisar no Histórico pelo CEP:</label>
+                <input class="input2 input" type="text" id="Historico" name="historico" placeholder="Ex.: 80060150">
+                <button class="buscar" type="submit">Buscar</button>
             </div>
-            <button class="buscar" id="btnLimparHistorico" type="button"> Limpar Histórico </button>
+            <button class="buscar"> Limpar Histórico </button>
         </div>
         
 
@@ -109,7 +121,7 @@
                     <th></th>
                 </tr>
             </thead>
-            <tbody id="corpoTabela">
+            <tbody>
                 <tr>
                     <td>80060150</td>
                     <td>Rua General Carneiro</td>
@@ -127,11 +139,15 @@
                         <button class="dourado botao"> Favoritar </button>
                     </td>
                 </tr>
-            </tbody> </table>
+        </table>
 
-        <br><br>
+        <br>
+        <br>
+
+
     </main>
-<script src="index.js"></script>
 </body>
+
+
 
 </html>
