@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="layout.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="Imagens/icon.jpg">
+    <title>Cadastro</title>
+</head>
+
+<body>
+    <nav>
+        <ul class="flexnav">
+            <li class="titulonav">
+                <img src="Imagens/icon.jpg" alt="Icone Azul" width="40px" height="45px">
+                <a href="Index.html">ViaCep 2.0</a>
+            </li>
+
+
+            <li class="anav login">
+                <a href="Login.html">Login</a>
+            </li>
+            <li class="anav">
+                <a href="Index.html">Logout</a>
+            </li>
+
+            <li class="anav">
+                <a href="Conta.html">Conta</a>
+            </li>
+
+            <li class="anav">
+                <a href="Favorito.html">Favoritos</a>
+            </li>
+
+        </ul>
+    </nav>
+    <main>
+        <div class="centralizar">
+            <div class="caixaazul2 caixaazul">
+               <form id="formCadastro">
+    <div class="labelalinhadologin">
+        <p>Cadastre-se aqui</p>
+    </div>
+    <br>
+    <label class="labels" for="Nome"> Nome: </label>
+    <input class="input3 input" type="text" id="Nome" name="Nome" placeholder="    Ex.: Rael" required>
+    <br><br>
+    
+    <label class="labels" for="Email"> Email: </label>
+    <input class="input3 input" type="email" id="Email" name="Email" placeholder="    Ex.: Exemplo@gmail.com" required>
+    <br><br>
+    
+    <label class="labels" for="Senha"> Senha: </label>
+    <input class="input3 input" type="password" id="Senha" name="Senha" placeholder="    Ex.: *****" required>
+    <br><br>
+    
+    <button class="buscar2 buscar" type="submit">Cadastrar-se</button>
+    <br>
+    <p class="aviso">*Já tem conta? Faça Login <a class="linkcadastro" href="Login.html">aqui</a></p>
+</form>
+            </div>
+        </div>
+
+
+    </main>
+    <script type="module" src="cadastro.js"></script>
+</body>
+
+
+
+</html>
