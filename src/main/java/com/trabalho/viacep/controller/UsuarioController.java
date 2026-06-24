@@ -23,7 +23,7 @@ public class UsuarioController {
         return ResponseEntity.ok(service.login(email, senha));
     }
 
-    @PutMapping("/atualizar/{id}")
+    @PatchMapping("/atualizar/{id}")
     public ResponseEntity<Usuario> atualizar(@PathVariable Long id, @RequestBody Usuario usuario) {
         return ResponseEntity.ok(service.atualizar(id, usuario));
     }
