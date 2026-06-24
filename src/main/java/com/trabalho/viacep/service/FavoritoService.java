@@ -21,6 +21,12 @@ public class FavoritoService {
         Usuario usuario = usuarioRepository.findById(usuarioId)
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
+        Favorito jaExiste = favoritoRepository.findByCepAndUsuarioID(cep, usuarioId);
+
+        if (jaExiste != null) {
+            throw new RuntimeException("Você já favoritou este CEP");
+        }
+
         Favorito favorito = new Favorito();
         favorito.setCep(cep);
         favorito.setNome(nome);
@@ -44,7 +50,6 @@ public class FavoritoService {
     public Categoria salvarCategoria(String nome, Long usuarioId) {
         Usuario usuario = usuarioRepository.findById(usuarioId)
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
-
         Categoria categoria = new Categoria();
         categoria.setNome(nome);
         categoria.setUsuario(usuario);

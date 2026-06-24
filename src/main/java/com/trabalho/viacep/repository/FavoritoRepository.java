@@ -14,4 +14,6 @@ public interface FavoritoRepository extends JpaRepository<Favorito, Long> {
     List<Favorito> findByUsuarioId(Long usuarioId);
 
     List<Favorito> findByCategoriasIdAndUsuarioId(Long categoriaId, Long usuarioId);
+
+    Favorito findByCepAndUsuarioID(String cep, Long usuarioId);
 }
