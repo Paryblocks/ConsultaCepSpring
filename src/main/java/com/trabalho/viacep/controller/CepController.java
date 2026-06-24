@@ -27,14 +27,22 @@ public class CepController {
         
         return resultado;
     }
-
-    @GetMapping("/{uf}/{cidade}/{logradouro}")
+@GetMapping("/{uf}/{cidade}/{logradouro}")
     public List<Cep> buscarPorEndereco(
             @PathVariable String uf,
             @PathVariable String cidade,
             @PathVariable String logradouro,
             @RequestParam(required = false) Long usuarioId) {
-        return service.buscarPorEndereco(uf, cidade, logradouro, usuarioId);
+        
+        List<Cep> resultados = service.buscarPorEndereco(uf, cidade, logradouro, usuarioId);
+        
+        if (resultados != null) {
+            for (Cep c : resultados) {
+                c.setUsuario(null);
+            }
+        }
+        
+        return resultados;
     }
 
     @GetMapping("/mais-consultado")

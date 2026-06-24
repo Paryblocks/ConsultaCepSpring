@@ -47,18 +47,9 @@ public class UsuarioService {
         Usuario usuarioBanco = repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
-<<<<<<< HEAD
         usuarioBanco.setNome(dadosNovos.getNome());
         usuarioBanco.setEmail(dadosNovos.getEmail());
 
-=======
-        if (dadosNovos.getEmail() != null && !dadosNovos.getEmail().isEmpty()) {
-            usuarioBanco.setEmail(dadosNovos.getEmail());
-        }
-        if (dadosNovos.getNome() != null && !dadosNovos.getNome().isEmpty()) {
-            usuarioBanco.setNome(dadosNovos.getNome());
-        }
->>>>>>> 0f3ff815dec9c8c3500216bf3a0f2b91c6e83f3d
         if (dadosNovos.getSenha() != null && !dadosNovos.getSenha().isEmpty()) {
             try {
                 String senhaComSalt = Util.gerarSHA256(this.salt + dadosNovos.getSenha() + this.salt);
