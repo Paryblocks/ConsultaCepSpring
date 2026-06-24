@@ -21,7 +21,7 @@ public class FavoritoService {
         Usuario usuario = usuarioRepository.findById(usuarioId)
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
-        Favorito jaExiste = favoritoRepository.findByCepAndUsuarioID(cep, usuarioId);
+        Favorito jaExiste = favoritoRepository.findByCepAndUsuarioId(cep, usuarioId);
 
         if (jaExiste != null) {
             throw new RuntimeException("Você já favoritou este CEP");
