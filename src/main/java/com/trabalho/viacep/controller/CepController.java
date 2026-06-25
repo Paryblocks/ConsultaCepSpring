@@ -74,6 +74,12 @@ public class CepController {
         service.limparHistoricoUsuario(usuarioId);
         return ResponseEntity.noContent().build();
     }
+   
+    @DeleteMapping("/historico/{id}")
+    public ResponseEntity<Void> deletarUmItem(@PathVariable Long id, @RequestParam Long usuarioId) {
+        service.excluirCepDoHistorico(id, usuarioId);
+        return ResponseEntity.noContent().build();
+    }
 
     @GetMapping("/relatorio/{usuarioId}")
     public ResponseEntity<InputStreamResource> gerarRelatorio(

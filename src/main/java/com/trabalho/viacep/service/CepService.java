@@ -210,4 +210,11 @@ public class CepService {
 
         return new ByteArrayInputStream(out.toByteArray());
     }
+
+    @Transactional
+public void excluirCepDoHistorico(Long idCep, Long usuarioId) {
+    cepRepository.deleteByIdAndUsuarioId(idCep, usuarioId);
 }
+
+}
+
