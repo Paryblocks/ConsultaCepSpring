@@ -8,6 +8,8 @@ import com.trabalho.viacep.repository.FavoritoRepository;
 import com.trabalho.viacep.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 
 @Service
@@ -39,6 +41,7 @@ public class FavoritoService {
         return favoritoRepository.findByUsuarioId(usuarioId);
     }
 
+    @Transactional
     public void excluirFavorito(String cep, Long usuarioId) {
         favoritoRepository.deleteByCepAndUsuarioId(cep, usuarioId);
     }

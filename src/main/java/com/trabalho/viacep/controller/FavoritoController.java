@@ -10,6 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/favoritos")
+@CrossOrigin(originPatterns = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE, RequestMethod.PUT})
 public class FavoritoController {
 
     @Autowired

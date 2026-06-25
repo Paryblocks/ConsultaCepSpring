@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="layout.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="Imagens/icon.jpg">
-    <title>Login</title>
+    <title>Meus Favoritos</title>
 </head>
 
 <body>
@@ -17,12 +17,11 @@
                 <a href="Index.html">ViaCep 2.0</a>
             </li>
 
-
             <li class="anav login">
                 <a href="Login.html">Login</a>
             </li>
             <li class="anav">
-                <a href="Index.html" id= "logout">Logout</a>
+                <a href="Index.html" id="logout">Logout</a>
             </li>
 
             <li class="anav">
@@ -32,49 +31,32 @@
             <li class="anav">
                 <a href="Favorito.html">Favoritos</a>
             </li>
-
         </ul>
     </nav>
+
     <main>
-        <table class="tabela2 tabelaresultado">
+        <br><br>
+        <div class="textomain" style="text-align: center;">
+            <h1>Seus CEPs Salvos</h1>
+            <h2>Gerencie seus endereços favoritos com apelidos personalizados.</h2>
+        </div>
+        <br><br>
+
+        <table class="tabelaresultado">
             <thead>
                 <tr>
+                    <th>Apelido / Nome</th>
                     <th>CEP</th>
-                    <th>Logradouro</th>
-                    <th>Complemento</th>
-                    <th>Bairro</th>
-                    <th>Localidade</th>
-                    <th>UF</th>
-                    <th>Estado</th>
-                    <th>Região</th>
-                    <th>DDD</th>
-                    <th></th>
-                    <th></th>
+                    <th>Ações</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <td>80060150</td>
-                    <td>Rua General Carneiro</td>
-                    <td></td>
-                    <td>Centro</td>
-                    <td>Curitiba</td>
-                    <td>PR</td>
-                    <td>Paraná</td>
-                    <td>Sul</td>
-                    <td>41</td>
-                    <td>
-                        <button class="botao"> Deletar </button>
-                    </td>
-                    <td>
-                        <button class=" botao"> adicionar </button>
-                    </td>
-                </tr>
+            <tbody id="corpoFavoritos">
+                </tbody>
         </table>
-
+        <br><br>
     </main>
+
+    <script type="module" src="favorito.js"></script>
 </body>
-
-
 
 </html>

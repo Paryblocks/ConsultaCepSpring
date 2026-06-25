@@ -44,3 +44,18 @@ export function fazerLogin(email, senha) {
         throw error;
     });
 }
+export function favoritarCep(cep, nome, usuarioId) {
+    const url = `${baseURL}/favoritos?cep=${encodeURIComponent(cep)}&nome=${encodeURIComponent(nome)}&usuarioId=${usuarioId}`;
+
+    return fetch(url, {
+        method: 'POST'
+    })
+        .then(response => {
+            if (!response.ok) throw new Error('Erro ao favoritar o CEP no servidor.');
+            return response.json();
+        })
+        .catch(error => {
+            console.error('Erro na requisição de favoritar:', error);
+            throw error;
+        });
+}

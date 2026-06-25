@@ -1,5 +1,6 @@
 package com.trabalho.viacep.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ public class Favorito {
 	@Column(name = "id_favorito")
 	private Long id;
 	@ManyToOne
+	@JsonIgnoreProperties({"favoritos", "categorias", "senha"})
 	private Usuario usuario;
 	private String cep;
 	private String nome;
@@ -22,6 +24,7 @@ public class Favorito {
 			joinColumns = @JoinColumn(name = "fk_id_favorito"),
 			inverseJoinColumns = @JoinColumn(name = "fk_id_categoria")
 	)
+	@JsonIgnoreProperties("favoritos")
 	private List<Categoria> categorias = new ArrayList<>();
 
 	public Favorito() {}

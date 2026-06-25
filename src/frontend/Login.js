@@ -45,6 +45,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 .then(usuarioLogado => {
                     if (usuarioLogado && usuarioLogado.id) {
                         sessionStorage.setItem('idUsuario', usuarioLogado.id);
+                        sessionStorage.setItem('emailUsuario', usuarioLogado.email);
+                        sessionStorage.setItem('nomeUsuario', usuarioLogado.nome);
                         alert('Login realizado com sucesso!');
                         window.location.href = 'Index.html';
                     } else {

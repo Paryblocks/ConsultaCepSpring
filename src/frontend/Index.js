@@ -1,3 +1,4 @@
+import { favoritarCep } from './api.js'
 
 let dadosAtuaisTabela = [];
 
@@ -54,7 +55,7 @@ formCep.addEventListener('submit', function (e) {
     e.preventDefault();
     
     const cephifen = document.getElementById('Cep').value.trim();
-    cep = cephifen.replace("-", ""); 
+    const cep = cephifen.replace("-", "");
     if (cep.length!=8)
     {
         alert('Digite um CEP válido.');
@@ -138,6 +139,7 @@ function adicionarLinhaTabela(cepObjeto) {
     }
 
     const tr = document.createElement('tr');
+    const cepLimpo = cepObjeto.cep ? cepObjeto.cep.replace("-", "") : '';
 
     tr.innerHTML = `
         <td>${cepObjeto.cep || 'N/A'}</td>
@@ -150,12 +152,56 @@ function adicionarLinhaTabela(cepObjeto) {
         <td>${cepObjeto.regiao || 'N/A'}</td>
         <td>${cepObjeto.ddd || 'N/A'}</td>
         <td>
-            <button class="botao"> Deletar </button>
+            <button class="botao btn-deletar"> Deletar </button>
         </td>
         <td>
-            <button class="dourado botao"> Favoritar </button>
+            <button class="dourado botao btn-favoritar"> Favoritar </button>
         </td>
     `;
+
+    const botaoFavoritar = tr.querySelector('.btn-favoritar');
+
+
+    botaoFavoritar.addEventListener('click', function (evento) {
+        evento.preventDefault(); 
+        
+
+        try {
+            const idUsuario = sessionStorage.getItem('idUsuario') || sessionStorage.getItem('usuarioId');
+            console.log("ID do Usuário recuperado:", idUsuario);
+
+            if (!idUsuario || idUsuario === "null" || idUsuario === "undefined") {
+                alert('Você precisa estar logado para favoritar um CEP! ID atual: ' + idUsuario);
+                return;
+            }
+
+            const sugestaoNome = cepObjeto.logradouro || 'Meu Favorito';
+            
+            const nomeFavorito = prompt('Dê um nome/apelido para este favorito:', sugestaoNome);
+
+            if (nomeFavorito === null) {
+                console.log("Usuário cancelou o prompt.");
+                return;
+            }
+
+            const nomeFinal = nomeFavorito.trim() === "" ? "Favorito sem nome" : nomeFavorito.trim();
+
+            console.log(`Disparando API para CEP: ${cepLimpo}, Nome: ${nomeFinal}, Usuário: ${idUsuario}`);
+
+            favoritarCep(cepLimpo, nomeFinal, idUsuario)
+                .then(data => {
+                    alert(`Sucesso! O CEP ${cepObjeto.cep} foi favoritado como "${nomeFinal}".`);
+                    botaoFavoritar.disabled = true;
+                    botaoFavoritar.innerText = "Favoritado";
+                })
+                .catch(erro => {
+                    alert('Erro retornado do Back-end: ' + erro.message);
+                });
+
+        } catch (erroInterno) {
+            alert('Erro interno no clique: ' + erroInterno.message);
+        }
+    });
 
     corpoTabela.appendChild(tr);
 }
