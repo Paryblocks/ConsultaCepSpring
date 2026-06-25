@@ -47,8 +47,12 @@ public class UsuarioService {
         Usuario usuarioBanco = repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
-        usuarioBanco.setNome(dadosNovos.getNome());
-        usuarioBanco.setEmail(dadosNovos.getEmail());
+        if (dadosNovos.getEmail() != null && !dadosNovos.getEmail().isEmpty()) {
+            usuarioBanco.setEmail(dadosNovos.getEmail());
+        }
+        if (dadosNovos.getNome() != null && !dadosNovos.getNome().isEmpty()) {
+            usuarioBanco.setNome(dadosNovos.getNome());
+        }
 
         if (dadosNovos.getSenha() != null && !dadosNovos.getSenha().isEmpty()) {
             try {
