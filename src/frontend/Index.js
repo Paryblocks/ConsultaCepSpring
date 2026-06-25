@@ -300,3 +300,24 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+function deletarItem(idCep) {
+    console.log("Teste de clique! ID recebido:", idCep);
+
+    const idUsuario = sessionStorage.getItem('idUsuario') || sessionStorage.getItem('usuarioId');
+
+    if (!confirm('Deseja realmente remover este CEP do seu histórico?')) {
+        return;
+    }
+
+    fetch(`http://localhost:8080/cep/historico/${idCep}?usuarioId=${idUsuario}`, {
+        method: 'DELETE'
+    })
+        .then(response => {
+            if (!response.ok) throw new Error('Erro ao excluir item.');
+            alert('Item removido com sucesso!');
+            carregarHistorico();
+        })
+        .catch(erro => {
+            alert('Erro ao excluir: ' + erro.message);
+        });
+}
