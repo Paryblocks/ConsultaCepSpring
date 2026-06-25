@@ -47,9 +47,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-
-
-
 const formCep = document.getElementById('formCep');
 formCep.addEventListener('submit', function (e) {
     e.preventDefault();
@@ -159,12 +156,18 @@ function adicionarLinhaTabela(cepObjeto) {
         </td>
     `;
 
+    const botaoDeletar = tr.querySelector('.btn-deletar');
+    botaoDeletar.addEventListener('click', function (evento) {
+        evento.preventDefault();
+        
+        const idHistorico = cepObjeto.id; 
+        
+        deletarItem(idHistorico);
+    });
+
     const botaoFavoritar = tr.querySelector('.btn-favoritar');
-
-
     botaoFavoritar.addEventListener('click', function (evento) {
         evento.preventDefault(); 
-        
 
         try {
             const idUsuario = sessionStorage.getItem('idUsuario') || sessionStorage.getItem('usuarioId');
@@ -176,7 +179,6 @@ function adicionarLinhaTabela(cepObjeto) {
             }
 
             const sugestaoNome = cepObjeto.logradouro || 'Meu Favorito';
-            
             const nomeFavorito = prompt('Dê um nome/apelido para este favorito:', sugestaoNome);
 
             if (nomeFavorito === null) {
