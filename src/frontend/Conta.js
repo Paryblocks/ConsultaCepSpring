@@ -2,11 +2,6 @@ import {getDados,  enviarDados } from './api.js';
 
 const idUsuario = sessionStorage.getItem('idUsuario');
 
-if (!idUsuario) {
-    alert('Por favor, realize o login primeiro.');
-    window.location.href = 'Login.html';
-}
-
 getDados(`/usuario/${idUsuario}`) 
     .then(usuario => {
         if (usuario) {
@@ -67,5 +62,39 @@ botaoExcluir.addEventListener('click', function () {
                 sessionStorage.clear(); 
                 window.location.href = 'Index.html'; 
             });
+    }
+});
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    const botaoLogout = document.getElementById('logout');
+    if (botaoLogout) {
+        botaoLogout.addEventListener('click', function(event) {
+            event.preventDefault();
+            alert('Você tem que logar para poder fazer logout!');
+        });
+    }
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    const botaoLogout = document.getElementById('logout');
+    if (botaoLogout) {
+        botaoLogout.addEventListener('click', function (event) {
+            event.preventDefault();
+            
+            const idUsuario = sessionStorage.getItem('idUsuario') || sessionStorage.getItem('usuarioId');
+            if (idUsuario && idUsuario !== "null" && idUsuario !== "undefined") {
+                sessionStorage.clear();
+                localStorage.clear();
+                
+                alert('Adeus!');
+                window.location.href = this.href; 
+            } else {
+                sessionStorage.clear();
+                localStorage.clear();
+                alert('Você não está logado!');
+                window.location.href = 'Login.html';
+            }
+        });
     }
 });

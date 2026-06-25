@@ -5,6 +5,8 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "usuario")
 public class Usuario {
@@ -20,6 +22,7 @@ public class Usuario {
 	private String senha;
 	@Column(nullable = false, updatable = false)
 	private Timestamp dataCriacao;
+	@JsonIgnoreProperties("usuario")
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
 	private List<Cep> historico = new ArrayList<>();
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)

@@ -13,36 +13,40 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/cep")
+@CrossOrigin(originPatterns = "*", allowedHeaders = "*")
 public class CepController {
 
     @Autowired
     private CepService service;
-@GetMapping("/{cep}")
-    public Cep buscar(@PathVariable String cep, @RequestParam(required = false) Long usuarioId) {
+
+    @GetMapping("/{cep}")
+    public ResponseEntity<Cep> buscar(@PathVariable String cep, @RequestParam(required = false) Long usuarioId) {
         Cep resultado = service.buscar(cep, usuarioId);
-        
-        if (resultado != null) {
-            resultado.setUsuario(null);
+        if (resultado == null) {
+            return ResponseEntity.notFound().build();
         }
-        
-        return resultado;
+        resultado.setUsuario(null);
+        return ResponseEntity.ok(resultado);
     }
-@GetMapping("/{uf}/{cidade}/{logradouro}")
-    public List<Cep> buscarPorEndereco(
+
+    @GetMapping("/{uf}/{cidade}/{logradouro}")
+    public ResponseEntity<List<Cep>> buscarPorEndereco(
             @PathVariable String uf,
             @PathVariable String cidade,
             @PathVariable String logradouro,
             @RequestParam(required = false) Long usuarioId) {
-        
+
         List<Cep> resultados = service.buscarPorEndereco(uf, cidade, logradouro, usuarioId);
-        
-        if (resultados != null) {
-            for (Cep c : resultados) {
-                c.setUsuario(null);
-            }
+
+        if (resultados == null || resultados.isEmpty()) {
+            return ResponseEntity.notFound().build();
         }
-        
-        return resultados;
+
+        for (Cep c : resultados) {
+            c.setUsuario(null);
+        }
+
+        return ResponseEntity.ok(resultados);
     }
 
     @GetMapping("/mais-consultado")
@@ -80,8 +84,7 @@ public class CepController {
         HttpHeaders headers = new HttpHeaders();
         headers.add(
                 HttpHeaders.CONTENT_DISPOSITION,
-                "attachment; filename=relatorio-ceps.csv"
-        );
+                "attachment; filename=relatorio-ceps.csv");
 
         return ResponseEntity.ok()
                 .headers(headers)

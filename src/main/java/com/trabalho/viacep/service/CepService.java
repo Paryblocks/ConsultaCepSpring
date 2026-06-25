@@ -6,6 +6,7 @@ import com.trabalho.viacep.repository.CepRepository;
 import com.trabalho.viacep.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 import java.time.Instant;
@@ -27,7 +28,6 @@ public class CepService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    // Busca na Api e se tiver usuário logado, salva no histórico
     public Cep buscar(String cep, Long usuarioId) {
 
         try {
@@ -38,8 +38,13 @@ public class CepService {
             Scanner sc = new Scanner(conn.getInputStream(), "UTF-8");
             String json = "";
 
-            while (sc.hasNext()) json += sc.nextLine();
+            while (sc.hasNext())
+                json += sc.nextLine();
             sc.close();
+
+            if (json.contains("\"erro\"")) {
+                return null;
+            }
 
             String cidade = extrair(json, "\"localidade\": \"");
             String estado = extrair(json, "\"estado\": \"");
@@ -49,36 +54,42 @@ public class CepService {
             String UF = extrair(json, "\"uf\": \"");
             String regiao = extrair(json, "\"regiao\": \"");
             String DDD = extrair(json, "\"ddd\": \"");
-            
-            boolean erro = Boolean.parseBoolean(extrair(json, "\"erro\": \""));
-            
-            
-            if(erro == true) {
-            	return null;
-            }
 
-            Cep novaPesquisa = new Cep(cep, cidade, estado, logradouro, complemento, bairro, UF, regiao, DDD, Timestamp.from(Instant.now()));
+            Cep novaPesquisa = new Cep(cep, cidade, estado, logradouro, complemento, bairro, UF, regiao, DDD,
+                    Timestamp.from(Instant.now()));
 
             if (usuarioId != null) {
                 Optional<Usuario> usuarioOpt = usuarioRepository.findById(usuarioId);
+
                 if (usuarioOpt.isPresent()) {
-                    novaPesquisa.setUsuario(usuarioOpt.get());
-                    return cepRepository.save(novaPesquisa);
+                    Usuario usuario = usuarioOpt.get();
+                    novaPesquisa.setUsuario(usuario);
+
+                    Optional<Cep> cepExistente = cepRepository.findByCepAndUsuarioId(cep, usuarioId);
+
+                    if (cepExistente.isPresent()) {
+                        Cep antigo = cepExistente.get();
+                        antigo.setDataConsulta(Timestamp.from(Instant.now()));
+                        return cepRepository.save(antigo);
+                    } else {
+                        return cepRepository.save(novaPesquisa);
+                    }
                 }
             }
 
+            System.out.println("DEBUG: Ignorou o salvamento e retornou direto.");
             return novaPesquisa;
 
         } catch (Exception e) {
             return null;
         }
     }
-    
+
     public List<Cep> buscarPorEndereco(String uf, String cidade, String logradouro, Long usuarioId) {
-    	
-    	List<Cep> lista = new ArrayList<>();
+
+        List<Cep> lista = new ArrayList<>();
         try {
-        	cidade = cidade.replace(" ", "%20");
+            cidade = cidade.replace(" ", "%20");
             logradouro = logradouro.replace(" ", "%20");
             URL url = new URL("https://viacep.com.br/ws/" + uf + "/" + cidade + "/" + logradouro + "/json/");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -87,9 +98,10 @@ public class CepService {
             Scanner sc = new Scanner(conn.getInputStream(), "UTF-8");
             String json = "";
 
-            while (sc.hasNext()) json += sc.nextLine();
+            while (sc.hasNext())
+                json += sc.nextLine();
             sc.close();
-            
+
             json = json.substring(1, json.length() - 1);
 
             String[] objetos = json.split("\\}\\s*,\\s*\\{");
@@ -100,34 +112,45 @@ public class CepService {
             }
 
             for (String obj : objetos) {
-                
+
                 String cepDaLista = extrair(obj, "\"cep\": \"").replace("-", "");
                 String estado = extrair(obj, "\"estado\": \"");
-                String logradouroRetornado = extrair(obj, "\"logradouro\": \""); // Nome alterado para não conflitar
+                String logradouroRetornado = extrair(obj, "\"logradouro\": \"");
                 String complemento = extrair(obj, "\"complemento\": \"");
                 String bairro = extrair(obj, "\"bairro\": \"");
                 String regiao = extrair(obj, "\"regiao\": \"");
                 String DDD = extrair(obj, "\"ddd\": \"");
-                
+
                 String erroStr = extrair(obj, "\"erro\": \"");
                 boolean erro = erroStr != null && erroStr.equals("true");
-                
-                if(erro) {
+
+                if (erro) {
                     return null;
                 } else {
-                	if(!logradouroRetornado.equals("N/A")) {
-                        Cep c = new Cep(cepDaLista, cidade, estado, logradouroRetornado, complemento, bairro, uf, regiao, DDD, Timestamp.from(Instant.now()));
+                    if (!logradouroRetornado.equals("N/A")) {
+                        Cep c = new Cep(cepDaLista, cidade, estado, logradouroRetornado, complemento, bairro, uf,
+                                regiao, DDD, Timestamp.from(Instant.now()));
+                        
                         if (usuarioLogado != null) {
                             c.setUsuario(usuarioLogado);
-                            cepRepository.save(c);
+
+                            Optional<Cep> cepExistente = cepRepository.findByCepAndUsuarioId(cepDaLista, usuarioId);
+
+                            if (cepExistente.isPresent()) {
+                                Cep antigo = cepExistente.get();
+                                antigo.setDataConsulta(Timestamp.from(Instant.now()));
+                                cepRepository.save(antigo);
+                            } else {
+                                cepRepository.save(c);
+                            }
                         }
-                    lista.add(c);
-                	}else {
-                		return null;
-                	}
+                        lista.add(c);
+                    } else {
+                        return null;
+                    }
                 }
             }
-            
+
             return lista;
         } catch (Exception e) {
             return null;
@@ -151,6 +174,7 @@ public class CepService {
         return cepRepository.findByUsuarioIdOrderByDataConsultaDesc(usuarioId);
     }
 
+    @Transactional
     public void limparHistoricoUsuario(Long usuarioId) {
         cepRepository.deleteByUsuarioId(usuarioId);
     }
@@ -166,8 +190,7 @@ public class CepService {
 
     public ByteArrayInputStream gerarRelatorioCsv(Long usuarioId) {
 
-        List<Cep> consultas =
-                cepRepository.findByUsuarioIdOrderByDataConsultaDesc(usuarioId);
+        List<Cep> consultas = cepRepository.findByUsuarioIdOrderByDataConsultaDesc(usuarioId);
 
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         PrintWriter writer = new PrintWriter(out);

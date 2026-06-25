@@ -1,4 +1,12 @@
+
 import { enviarDados } from './api.js'; 
+
+const idUsuario = sessionStorage.getItem('idUsuario');
+
+if (idUsuario) {
+    alert('Você já está logado!');
+    window.location.href = 'Index.html';
+}
 
 const formulario = document.getElementById('formCadastro');
 
@@ -30,4 +38,37 @@ formulario.addEventListener('submit', function (event) {
             console.error('Erro ao cadastrar:', erro);
             alert('Erro ao realizar o cadastro. O e-mail já pode estar em uso.');
         });
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    const botaoLogout = document.getElementById('logout');
+    if (botaoLogout) {
+        botaoLogout.addEventListener('click', function(event) {
+            event.preventDefault();
+            alert('Você tem que logar para poder fazer logout!');
+        });
+    }
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    const botaoLogout = document.getElementById('logout');
+    if (botaoLogout) {
+        botaoLogout.addEventListener('click', function (event) {
+            event.preventDefault();
+            
+            const idUsuario = sessionStorage.getItem('idUsuario') || sessionStorage.getItem('usuarioId');
+            if (idUsuario && idUsuario !== "null" && idUsuario !== "undefined") {
+                sessionStorage.clear();
+                localStorage.clear();
+                
+                alert('Adeus!');
+                window.location.href = this.href; 
+            } else {
+                sessionStorage.clear();
+                localStorage.clear();
+                alert('Você não está logado!');
+                window.location.href = 'Login.html';
+            }
+        });
+    }
 });
