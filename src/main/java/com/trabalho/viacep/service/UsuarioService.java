@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.sql.Timestamp;
 import java.time.Instant;
-import java.util.Optional;
+import java.util.Optional; 
 
 @Service
 public class UsuarioService {
@@ -47,6 +47,7 @@ public class UsuarioService {
         Usuario usuarioBanco = repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
+        // Validações de segurança antes de aplicar as mudanças
         if (dadosNovos.getEmail() != null && !dadosNovos.getEmail().isEmpty()) {
             usuarioBanco.setEmail(dadosNovos.getEmail());
         }
@@ -54,6 +55,7 @@ public class UsuarioService {
             usuarioBanco.setNome(dadosNovos.getNome());
         }
 
+        // Atualização de senha protegida
         if (dadosNovos.getSenha() != null && !dadosNovos.getSenha().isEmpty()) {
             try {
                 String senhaComSalt = Util.gerarSHA256(this.salt + dadosNovos.getSenha() + this.salt);
