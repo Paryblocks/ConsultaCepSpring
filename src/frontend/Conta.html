@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="layout.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="Imagens/icon.jpg">
+    <title>Conta</title>
+</head>
+
+<body>
+    <nav>
+        <ul class="flexnav">
+            <li class="titulonav">
+                <img src="Imagens/icon.jpg" alt="Icone Azul" width="40px" height="45px">
+                <a href="Index.html">ViaCep 2.0</a>
+            </li>
+
+
+            <li class="anav login">
+                <a href="Login.html">Login</a>
+            </li>
+            <li class="anav">
+                <a href="Index.html" id= "logout">Logout</a>
+            </li>
+
+            <li class="anav">
+                <a href="Conta.html">Conta</a>
+            </li>
+
+            <li class="anav">
+                <a href="Favorito.html">Favoritos</a>
+            </li>
+
+        </ul>
+    </nav>
+    <main>
+        <div class="centralizar">
+            <div class="caixaazul3 caixaazul2 caixaazul">
+                <div class=labelalinhadologin>
+                    <p>Informações sobre a sua Conta:</p>
+
+                </div>
+                <br>
+               <div class="informacoesconta">
+    <p class="labels"> Nome: </p>
+    <p class="labels" id="textoNome"> Carregando... </p>
+</div>
+<br>
+<div class="informacoesconta">
+    <p class="labels"> Email: </p>
+    <p class="labels" id="textoEmail"> Carregando... </p>
+</div>
+<br>
+
+<hr class="linha">
+<br>
+
+<div class="labelalinhadologin">
+    <p>Atualizar Conta:</p>
+</div>
+<br>
+
+<form id="formAtualizarNome">
+    <label class="labels" for="Nome"> Nome: </label>
+    <input class="input3 input" type="text" id="Nome" name="Nome" placeholder="    Ex.: Rael">
+    <br><br>
+    <button class="buscar2 buscar" type="submit">Atualizar Nome</button>
+</form>
+<br><br>
+
+<form id="formAtualizarEmail">
+    <label class="labels" for="Email"> Email: </label>
+    <input class="input3 input" type="text" id="Email" name="Email" placeholder="    Ex.: Exemplo@gmail.com">
+    <br><br>
+    <button class="buscar2 buscar" type="submit">Atualizar Email</button>
+</form>
+<br><br>
+
+<form id="formAtualizarSenha">
+    <label class="labels" for="Senha"> Senha: </label>
+    <input class="input3 input" type="password" id="Senha" name="Senha" placeholder="    Ex.: Nova Senha">
+    <br><br>
+    <button class="buscar2 buscar" type="submit">Atualizar Senha</button>
+</form>
+
+<br>
+<hr class="linha">
+<br>
+<button id="botaoExcluirConta" class="vermelho buscar2 buscar">Excluir Conta</button>
+            </div>
+        </div>
+
+
+    </main>
+</body>
+<script type="module" src="Conta.js"></script>
+
+
+</html>

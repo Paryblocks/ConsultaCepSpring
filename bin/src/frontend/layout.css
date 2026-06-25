@@ -1,0 +1,187 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+nav {
+    background-color: #ffffff;
+    width: 100%;
+    height: 80px;
+}
+
+body {
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+    margin: 0;
+    overflow-x: hidden;
+}
+
+.flexnav {
+    padding: 0;
+    height: 100%;
+    margin: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: end;
+    gap: 30px;
+    padding-right: 15px;
+    padding-left: 40px;
+}
+
+.titulonav {
+    font-size: large;
+    width: 20%;
+    display: flex;
+    align-items: center;
+    margin-right: auto;
+    margin-left: 10px;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.anav {
+    border: 1px solid #0d3461;
+    ;
+    padding: 8px;
+    border-radius: 5px;
+}
+
+.login {
+    color: white;
+    background-color: #1965ba;
+}
+
+main {
+    background-color: #f5f9fa;
+    width: 100%;
+    height: 100vh;
+    padding-top: 1px;
+    padding-left: 70px;
+    padding-right: 30px;
+}
+
+.flexmain {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.textomain {
+    flex: 1;
+    min-width: 250px;
+}
+
+.imagemres {
+    flex: 1;
+    max-width: 500px;
+    width: 100%;
+    height: auto;
+}
+
+.caixaazul {
+    width: 500px;
+    background-color: #2a7cd0;
+    height: fit-content;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.labelalinhado {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 8px;
+    color: white;
+}
+
+.input {
+    width: 60%;
+    height: 50px;
+    border-radius: 10px;
+    border: none;
+}
+
+.input2 {
+    width: 150px;
+    margin-left: 10px;
+}
+
+.buscar {
+    background-color: #0d549e;
+    border: none;
+    color: white;
+    font-weight: bold;
+    margin-left: 20px;
+    padding: 20px;
+    border-radius: 15px;
+    font-size: 15px;
+}
+
+.buscar2 {
+    display: block;
+    margin: auto;
+}
+
+.aviso {
+    color: white;
+    font-size: 10px;
+}
+
+.tabelaresultado {
+    width: 100%;
+    height: fit-content;
+    border: 1px solid rgb(90, 90, 90);
+    border-radius: 10px;
+    text-align: center;
+}
+
+.botao {
+    border: none;
+    padding: 10px;
+    border-radius: 10px;
+    color: white;
+    background-color: #0d549e;
+}
+
+.dourado {
+    background-color: rgb(233, 178, 0);
+}
+
+th,
+td {
+    padding: 10px;
+}
+
+.labels {
+    color: white;
+    font-size: 15px;
+    margin-right: 10px;
+}
+
+.centralizar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.flexhistorico
+{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+}

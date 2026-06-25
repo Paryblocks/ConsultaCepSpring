@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="layout.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="Imagens/icon.jpg">
+    <title>Página Inicial</title>
+</head>
+
+<body>
+    <nav>
+        <ul class="flexnav">
+            <li class="titulonav">
+                <img src="Imagens/icon.jpg" alt="Icone Azul" width="40px" height="45px">
+                <a href="Index.html">ViaCep 2.0</a>
+            </li>
+
+            <li class="anav login">
+                <a href="Login.html">Login</a>
+            </li>
+            <li class="anav">
+                <a href="Index.html" id="logout">Logout</a>
+            </li>
+
+            <li class="anav">
+                <a href="Conta.html">Conta</a>
+            </li>
+
+            <li class="anav">
+                <a href="Favorito.html">Favoritos</a>
+            </li>
+        </ul>
+    </nav>
+    <main>
+        <div class="flexmain">
+            <div class="textomain">
+                <h1>Busque CEPs e Endereços com facilidade!</h1>
+                <h2>Encontre o que precisa de forma rápida, precisa e gratuita.</h2>
+            </div>
+            <img class="imagemres" src="Imagens/imagemprincipal.png">
+        </div>
+
+        <br><br><br>
+        <div class="centralizar">
+            <div class="caixaazul">
+                <form id="formCep">
+                    <div class="labelalinhado">
+                        <img src="Imagens/lupa.png" alt="Lupa" width="20px">
+                        <p>Pesquisar por CEP</p>
+                    </div>
+                    <label class="labels" for="Cep">Cep: </label>
+                    <input class="input" type="text" id="Cep" name="Cep" placeholder="    Ex.: 80060150">
+                    <button class="buscar" type="submit">Buscar</button>
+                    <p class="aviso">*Insira sem hífen, assim como no exemplo</p>
+                </form>
+            </div>
+            <br><br><br>
+
+            <div class="caixaazul">
+                <form id="formEndereco">
+                    <div class="labelalinhado">
+                        <img src="Imagens/lupa.png" alt="Lupa" width="20px">
+                        <p>Pesquisar por Endereço</p>
+                    </div>
+                    <label class="labels" for="UF"> UF: </label>
+                    <input class="input" type="text" id="UF" name="UF" placeholder="    Ex.: PR">
+                    <br><br>
+                    <label class="labels" for="Cidade"> Cidade: </label>
+                    <input class="input" type="text" id="Cidade" name="Cidade" placeholder="    Ex.: Curitiba">
+                    <br><br>
+                    <label class="labels" for="Logradouro"> Logradouro: </label>
+                    <input class="input" type="text" id="Logradouro" name="Logradouro"
+                        placeholder="    Ex.: Rua General Carneiro">
+                    <br><br>
+                    <button class="buscar2 buscar" type="submit">Buscar</button>
+                </form>
+            </div>
+        </div>
+        <br><br><br>
+        <hr>
+        <br>
+        <h2>Resultados e Histórico:</h2>
+        <br>
+        <div class="flexhistorico">
+            <div>
+                <label for="ordenacaoHistorico">Ordem das consultas:</label>
+                <select id="ordenacaoHistorico" class="input" style="padding: 5px; height: auto; width: auto;">
+                    <option value="recente">Mais recentes primeiro</option>
+                    <option value="antigo">Mais antigos primeiro</option>
+                </select>
+            </div>
+            <button class="buscar" id="btnGerarRelatorio" type="button"> Gerar Relatório CSV </button>
+            <button class="buscar" id="btnLimparHistorico" type="button"> Limpar Histórico </button>
+        </div>
+
+
+        <br>
+        <table class="tabelaresultado">
+            <thead>
+                <tr>
+                    <th>CEP</th>
+                    <th>Logradouro</th>
+                    <th>Complemento</th>
+                    <th>Bairro</th>
+                    <th>Localidade</th>
+                    <th>UF</th>
+                    <th>Estado</th>
+                    <th>Região</th>
+                    <th>DDD</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="corpoTabela">
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>
+
+                    </td>
+                    <td>
+
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <br><br>
+    </main>
+    <script src="index.js"></script>
+</body>
+
+</html>
