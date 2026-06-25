@@ -1,6 +1,5 @@
 package com.trabalho.viacep.controller;
 
-import com.trabalho.viacep.model.Categoria;
 import com.trabalho.viacep.model.Favorito;
 import com.trabalho.viacep.service.FavoritoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,26 +29,5 @@ public class FavoritoController {
     public ResponseEntity<Void> removerFavorito(@RequestParam String cep, @RequestParam Long usuarioId) {
         service.excluirFavorito(cep, usuarioId);
         return ResponseEntity.noContent().build();
-    }
-
-    @GetMapping("/categoria/{categoriaId}/usuario/{usuarioId}")
-    public List<Favorito> listarPorCategoria(@PathVariable Long categoriaId, @PathVariable Long usuarioId) {
-        return service.listarPorCategoria(categoriaId, usuarioId);
-    }
-
-    @PostMapping("/categorias")
-    public Categoria criarCategoria(@RequestParam String nome, @RequestParam Long usuarioId) {
-        return service.salvarCategoria(nome, usuarioId);
-    }
-
-    @GetMapping("/categorias/usuario/{usuarioId}")
-    public List<Categoria> listarCategorias(@PathVariable Long usuarioId) {
-        return service.listarCategorias(usuarioId);
-    }
-
-    @PostMapping("/vincular")
-    public ResponseEntity<Void> vincularCategoria(@RequestParam Long favoritoId, @RequestParam Long categoriaId, @RequestParam Long usuarioId) {
-        service.vincular(favoritoId, categoriaId, usuarioId);
-        return ResponseEntity.ok().build();
     }
 }

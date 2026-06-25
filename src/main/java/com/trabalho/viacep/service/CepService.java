@@ -157,19 +157,6 @@ public class CepService {
         }
     }
 
-    public int obterTotalAcessos(Long usuarioId) {
-        return cepRepository.contarTotalAcessosPorUsuarioId(usuarioId);
-    }
-
-    public Cep obterCepMaisConsultadoGlobal() {
-        Optional<String> cepOpt = cepRepository.findCepMaisConsultadoGlobal();
-        return cepOpt.map(cep -> buscar(cep, null)).orElse(null);
-    }
-
-    public List<String> obterTop15MaisPesquisadosDoUsuario(Long usuarioId) {
-        return cepRepository.findTop15CepsMaisPesquisados(usuarioId);
-    }
-
     public List<Cep> mostrarHistorico(Long usuarioId) {
         return cepRepository.findByUsuarioIdOrderByDataConsultaDesc(usuarioId);
     }

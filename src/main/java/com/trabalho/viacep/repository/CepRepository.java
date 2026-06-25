@@ -14,21 +14,6 @@ import java.util.Optional;
 public interface CepRepository extends JpaRepository<Cep, Long> {
     void deleteByUsuarioId(Long usuarioId);
 
-    @Query("SELECT c.cep FROM Cep c " +
-            "WHERE c.usuario.id = :usuarioId " +
-            "GROUP BY c.cep " +
-            "ORDER BY COUNT(c.cep) DESC")
-    List<String> findTop15CepsMaisPesquisados(@Param("usuarioId") Long usuarioId);
-
-    @Query("SELECT c.cep FROM Cep c " +
-            "GROUP BY c.cep " +
-            "ORDER BY COUNT(c.cep) DESC " +
-            "LIMIT 1")
-    Optional<String> findCepMaisConsultadoGlobal();
-
-    @Query("SELECT COUNT(c) FROM Cep c WHERE c.usuario.id = :usuarioId")
-    int contarTotalAcessosPorUsuarioId(@Param("usuarioId") Long usuarioId);
-
     List<Cep> findByUsuarioIdOrderByDataConsultaDesc(Long usuarioId);
 
     Optional<Cep> findByCepAndUsuarioId(String cep, Long usuarioId);

@@ -49,21 +49,6 @@ public class CepController {
         return ResponseEntity.ok(resultados);
     }
 
-    @GetMapping("/mais-consultado")
-    public Cep obterMaisConsultadoGlobal() {
-        return service.obterCepMaisConsultadoGlobal();
-    }
-
-    @GetMapping("/total-acessos/{usuarioId}")
-    public int obterTotalAcessos(@PathVariable Long usuarioId) {
-        return service.obterTotalAcessos(usuarioId);
-    }
-
-    @GetMapping("/top15/{usuarioId}")
-    public List<String> obterTop15MaisPesquisados(@PathVariable Long usuarioId) {
-        return service.obterTop15MaisPesquisadosDoUsuario(usuarioId);
-    }
-
     @GetMapping("/historico/{usuarioId}")
     public List<Cep> obterHistoricoDoUsuario(@PathVariable Long usuarioId) {
         return service.mostrarHistorico(usuarioId);

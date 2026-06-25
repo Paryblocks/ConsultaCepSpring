@@ -1,5 +1,4 @@
-
-import { enviarDados } from './api.js'; 
+import { enviarDados } from './api.js';
 
 const idUsuario = sessionStorage.getItem('idUsuario');
 

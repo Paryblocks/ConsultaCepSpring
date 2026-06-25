@@ -1,15 +1,4 @@
 const baseURL = 'http://localhost:8080';
-export function getDados(endpoint) {
-    return fetch(`${baseURL}${endpoint}`)
-        .then(response => {
-            if (!response.ok) throw new Error('Erro na requisição');
-            return response.json();
-        })
-        .catch(error => {
-            console.error('Erro ao acessar o endpoint:', error);
-            throw error; 
-        });
-}
 
 export function enviarDados(endpoint, dados) {
     return fetch(`${baseURL}${endpoint}`, {
